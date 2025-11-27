@@ -1,0 +1,30 @@
+{% extends 'ECMS/base.html' %}
+{% block title %}Create Campaign{% endblock %}
+{% block content %}
+<h1>Create / Edit Campaign</h1>
+<form method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    {{ form.name }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Subject</label>
+    {{ form.subject }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Content</label>
+    {{ form.content }}
+    <div class="form-text">You can paste HTML here. Make sure to test before sending.</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Scheduled At</label>
+    {{ form.scheduled_at }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Status</label>
+    {{ form.status }}
+  </div>
+  <button class="btn btn-primary" type="submit">Save</button>
+</form>
+{% endblock %}

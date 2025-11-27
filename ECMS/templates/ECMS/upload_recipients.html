@@ -1,0 +1,14 @@
+{% extends 'ECMS/base.html' %}
+{% block title %}Upload Recipients{% endblock %}
+{% block content %}
+<h1>Upload Recipients</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">CSV / Excel File</label>
+    {{ form.file }}
+    <div class="form-text">Expected columns: <code>name,email</code></div>
+  </div>
+  <button class="btn btn-primary" type="submit">Upload</button>
+</form>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'ECMS/base.html' %}
+{% block title %}Campaign Detail{% endblock %}
+{% block content %}
+<h1>{{ campaign.name }}</h1>
+<p><strong>Subject:</strong> {{ campaign.subject }}</p>
+<p><strong>Scheduled at:</strong> {{ campaign.scheduled_at }}</p>
+<p><strong>Status:</strong> {{ campaign.get_status_display }}</p>
+<p>
+  <strong>Recipients:</strong> {{ campaign.total_recipients }}
+  &nbsp; | &nbsp; <strong>Sent:</strong> {{ campaign.sent_count }}
+  &nbsp; | &nbsp; <strong>Failed:</strong> {{ campaign.failed_count }}
+</p>
+
+<h3>Delivery Logs</h3>
+<table class="table table-sm table-bordered">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Failure Reason</th>
+      <th>Processed At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in logs %}
+      <tr>
+        <td>{{ log.recipient_email }}</td>
+        <td>{{ log.get_status_display }}</td>
+        <td>{{ log.failure_reason|default:'-' }}</td>
+        <td>{{ log.processed_at }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">No logs yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Pagination -->
+<nav>
+  <ul class="pagination">
+    {% if logs.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ logs.previous_page_number }}">Previous</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    {% for num in logs.paginator.page_range %}
+      {% if logs.number == num %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if logs.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ logs.next_page_number }}">Next</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}
