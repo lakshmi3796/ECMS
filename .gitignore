@@ -1,0 +1,30 @@
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+venv/
+ENV/
+
+# Environment variables
+.env
+.env.*
+
+# Django files to ignore
+*.log
+media/
+staticfiles/
+
+# Uploaded files
+*.csv
+*.xls
+*.xlsx
+
+# IDEs
+.vscode/
+
+# Mac OS
+.DS_Store
+
